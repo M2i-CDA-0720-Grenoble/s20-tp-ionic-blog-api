@@ -1,13 +1,15 @@
 import React, { FC } from "react";
 import { Redirect, RouteComponentProps } from "react-router";
 import { Category, Layout } from "../components";
-import { categories } from "../data";
+import { ICategory } from "../models";
 
 type TParams = { id: string };
 
 const SingleCategory: FC<RouteComponentProps<TParams>> = ({ match }) => {
   const id = Number(match.params.id);
-  const category = categories.find( category => category.id === id );
+
+  // TODO - Récupérer la catégorie avec l'ID demandé dans le serveur
+  const category: ICategory | undefined = undefined;
 
   if (typeof category === 'undefined') {
     return <Redirect to="/" />;

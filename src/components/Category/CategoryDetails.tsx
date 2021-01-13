@@ -1,36 +1,32 @@
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle } from "@ionic/react";
 import React, { FC } from "react";
 import { Article } from "..";
-import { articles } from "../../data";
-import { Category } from "../../models";
+import { ICategory } from "../../models";
 import MarkupContainer from "../MarkupContainer";
 
 interface CategoryDetailsProps {
-  category: Category,
+  category: ICategory,
 }
 
-const CategoryDetails: FC<CategoryDetailsProps> = ({ category }) => {
-  const filteredArticles = articles.filter(
-    article => article.category.id === category.id
-  );
+const CategoryDetails: FC<CategoryDetailsProps> = ({ category }) => 
+  <>
+    <IonCard>
+      
+      <IonCardHeader>
+        <IonCardTitle>{category.name}</IonCardTitle>
+      </IonCardHeader>
 
-  return (
-    <>
-      <IonCard>
-        
-        <IonCardHeader>
-          <IonCardTitle>{category.name}</IonCardTitle>
-        </IonCardHeader>
+      <IonCardContent>
+        <MarkupContainer html={category.description} />
+      </IonCardContent>
 
-        <IonCardContent>
-          <MarkupContainer html={category.description} />
-        </IonCardContent>
+    </IonCard>
 
-      </IonCard>
-
-      <Article.List articles={filteredArticles} />
-    </>
-  );
-}
+    {
+      category.articles &&
+      <Article.List articles={category.articles} />
+    }
+  </>
+;
 
 export default CategoryDetails;

@@ -1,45 +1,31 @@
 import { IonBadge, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle } from "@ionic/react";
-import React, { FC, useContext } from "react";
-import { CommentContext } from "../../contexts";
-import { Article } from "../../models";
-import { Comment } from "../";
+import React, { FC } from "react";
+import { IArticle } from "../../models";
 import MarkupContainer from "../MarkupContainer";
 
 import './ArticleDetails.css';
 
 interface ArticleDetailsProps {
-  article: Article,
+  article: IArticle,
 }
 
-const ArticleDetails: FC<ArticleDetailsProps> = ({ article }) => {
-  const { comments } = useContext(CommentContext);
+const ArticleDetails: FC<ArticleDetailsProps> = ({ article: { id, title, cover, category, createdAt, content} }) =>
+  <>
+    <IonCard>
+      <img src={cover} alt={`Cover for article: ${title}`} />
 
-  const filteredComments = comments.filter(
-    comment => comment.article.id === article.id
-  );
+      <IonCardHeader>
+        <IonBadge color="tertiary">{category?.name}</IonBadge>
+        <IonCardTitle>{title}</IonCardTitle>
+        <IonCardSubtitle>Published on {createdAt}</IonCardSubtitle>
+      </IonCardHeader>
 
-  return (
-    <>
-      <IonCard>
-        <img src={article.cover} alt={`Cover for article: ${article.title}`} />
+      <IonCardContent>
+        <MarkupContainer className="ArticleDetails-content" html={content} />
+      </IonCardContent>
 
-        <IonCardHeader>
-          <IonBadge color="tertiary">{article.category.name}</IonBadge>
-          <IonCardTitle>{article.title}</IonCardTitle>
-          <IonCardSubtitle>Published on {article.createdAt.toLocaleString('en-GB')}</IonCardSubtitle>
-        </IonCardHeader>
-
-        <IonCardContent>
-          <MarkupContainer className="ArticleDetails-content" html={article.content} />
-        </IonCardContent>
-
-      </IonCard>
-
-      <Comment.List comments={filteredComments} />
-
-      <Comment.Form article={article} />
-    </>
-  );
-}
+    </IonCard>
+  </>
+;
 
 export default ArticleDetails;

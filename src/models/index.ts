@@ -1,4 +1,4 @@
-export type { default as Article } from './Article';
-export type { default as Category } from './Category';
-export type { default as Route } from './Route';
-export type { default as Comment } from './Comment';
+export type { default as IEntity } from './IEntity';
+export type { default as IArticle } from './IArticle';
+export type { default as ICategory } from './ICategory';
+export type { default as IComment } from './IComment';

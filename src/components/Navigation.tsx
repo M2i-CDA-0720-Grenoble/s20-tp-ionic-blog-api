@@ -1,47 +1,37 @@
-import { IonTabs, IonRouterOutlet, IonTabBar, IonTabButton, IonIcon, IonLabel, IonLoading } from "@ionic/react";
+import { IonTabs, IonRouterOutlet, IonTabBar, IonTabButton, IonIcon, IonLabel } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import React, { FC, Suspense } from "react";
+import React, { FC } from "react";
 import { Route, Redirect } from "react-router";
-import { routes } from "../data";
+import { AllCategories, Home, SingleArticle, SingleCategory } from "../pages";
+import { documentTextOutline, fileTrayStackedOutline } from "ionicons/icons";
 
 const Navigation: FC = () =>
   <IonReactRouter>
 
     <IonTabs>
       <IonRouterOutlet>
-        <Suspense fallback={<IonLoading
-          isOpen
-          message={'Please wait...'}
-        />}>
 
-          {
-            routes.map(
-              (route, index) =>
-                <Route
-                  key={index}
-                  path={ route.displayTab ? `/tabs/:tab(${route.name})` : route.uri }
-                  component={route.Component}
-                  exact={true}
-                />
-            )
-          }
-          <Route exact path="/" render={() => <Redirect to={routes[0].uri} />} />
+        <Route exact path="/tabs/:tab(articles)" component={Home} />
+        <Route exact path="/tabs/:tab(categories)" component={AllCategories} />
+        <Route exact path="/articles/:id(\d+)" component={SingleArticle} />
+        <Route exact path="/categories/:id(\d+)" component={SingleCategory} />
 
-        </Suspense>
+        <Route exact path="/" render={() => <Redirect to="/tabs/articles" />} />
+
       </IonRouterOutlet>
 
       <IonTabBar slot="bottom">
 
-        {
-          routes.filter( route => route.displayTab ).map(
-            (route, index) =>
-              <IonTabButton key={index} tab={route.name} href={route.uri}>
-                <IonIcon icon={route.icon} />
-                <IonLabel>{route.text}</IonLabel>
-              </IonTabButton>
-          )
-        }
+        <IonTabButton tab="articles" href="/tabs/articles">
+          <IonIcon icon={documentTextOutline} />
+          <IonLabel>Articles</IonLabel>
+        </IonTabButton>
 
+        <IonTabButton tab="categories" href="/tabs/categories">
+          <IonIcon icon={fileTrayStackedOutline} />
+          <IonLabel>Categories</IonLabel>
+        </IonTabButton>
+        
       </IonTabBar>
     </IonTabs>
 

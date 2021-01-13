@@ -1,11 +1,11 @@
 import { IonBadge, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle } from "@ionic/react";
 import React, { FC } from "react";
 import { MarkupContainer } from "..";
-import { Article } from "../../models";
+import { IArticle } from "../../models";
 import './ArticlePreview.css';
 
 interface ArticlePreviewProps {
-  article: Article,
+  article: IArticle,
 }
 
 const ArticlePreview: FC<ArticlePreviewProps> = ({ article: { id, cover, category, content, title, createdAt } }) =>
@@ -13,9 +13,9 @@ const ArticlePreview: FC<ArticlePreviewProps> = ({ article: { id, cover, categor
     <img src={cover} alt={`Cover for article: ${title}`} />
 
     <IonCardHeader>
-      <IonBadge color="tertiary">{category.name}</IonBadge>
+      <IonBadge color="tertiary">{category?.name}</IonBadge>
       <IonCardTitle>{title}</IonCardTitle>
-      <IonCardSubtitle>Published on {createdAt.toLocaleString('en-GB')}</IonCardSubtitle>
+      <IonCardSubtitle>Published on {createdAt}</IonCardSubtitle>
     </IonCardHeader>
 
     <IonCardContent>

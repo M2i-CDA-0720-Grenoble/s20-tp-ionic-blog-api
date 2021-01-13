@@ -1,10 +1,10 @@
 import { IonList } from "@ionic/react";
 import React, { FC } from "react";
-import { Category } from "../../models";
+import { ICategory } from "../../models";
 import CategoryPreview from "./CategoryPreview";
 
 interface CategoryListProps {
-  categories: Category[],
+  categories: ICategory[],
 }
 
 const CategoryList: FC<CategoryListProps> = ({ categories }) =>

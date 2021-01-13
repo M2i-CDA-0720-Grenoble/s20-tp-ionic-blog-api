@@ -1,10 +1,10 @@
 import { IonList } from "@ionic/react";
 import React, { FC } from "react";
-import { Article } from "../../models";
+import { IArticle } from "../../models";
 import ArticlePreview from "./ArticlePreview";
 
 interface ArticleListProps {
-  articles: Article[],
+  articles: IArticle[],
 }
 
 const ArticleList: FC<ArticleListProps> = ({ articles }) =>

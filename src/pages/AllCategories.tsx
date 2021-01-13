@@ -1,23 +1,15 @@
 import React, { FC } from "react";
 import { Category, Layout } from "../components";
-import { categories } from "../data";
+import { ICategory } from "../models";
 
 const AllCategories: FC = () => {
-  const sortedCategories = categories.sort(
-    (category1, category2) => {
-      if (category1.name > category2.name) {
-        return 1;
-      } else if (category1.name < category2.name) {
-        return -1;
-      }
-      return 0;
-    }
-  );
+  // TODO - Récupérer la liste des catégories dans le serveur
+  const categories: ICategory[] = [];
 
   return (
     <Layout title="Categories">
 
-      <Category.List categories={sortedCategories} />
+      <Category.List categories={categories} />
 
     </Layout>
   )
